@@ -11,11 +11,11 @@ export default {
 </script>
 
 <style lang="scss">
+  @import url('../static/css/grid.css');
+
   html,body{
     width: 100%;
-    min-width: 900px;
     height: 100%;
-    min-height: 350px;
     background-color: #3c3434;
     #app{
       display: flex;

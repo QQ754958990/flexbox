@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+.box{
+  display: -webkit-flex; /* Safari */
+  display: flex;
+}
+
 .col-1 {
   width: 8.33%;
 }

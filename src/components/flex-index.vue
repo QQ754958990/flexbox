@@ -5,6 +5,7 @@
       <input list="flex-wrap" name="flex-wrap" v-model="container['flex-wrap']" placeholder="如何换行"/>
       <input list="justify-content" name="justify-content" v-model="container['justify-content']" placeholder="对齐方式"/>
       <input list="align-items" name="align-items" v-model="container['align-items']" placeholder="侧轴对齐"/>
+      <input list="align-contents" name="align-contents" v-model="container['align-content']" placeholder="多轴对齐"/>
     </header>
     <main class="indexWrap_div_main row">
       <p class="WrapMain_div_add" @click="add_item_fn">添加项目</p>
@@ -24,41 +25,49 @@
     </main>
     <!-- ------------------------------------------------------------------------------------------------------------ -->
     <datalist id="align_self">
-      <option value="auto">auto</option>
-      <option value="flex-start">flex-start</option>
-      <option value="flex-end">flex-end</option>
-      <option value="center">center</option>
-      <option value="baseline">baseline</option>
-      <option value="stretch">stretch</option>
+      <option value="flex-start">交叉轴的起点对齐。</option>
+      <option value="flex-end">交叉轴的终点对齐。</option>
+      <option value="center">交叉轴的中点对齐。</option>
+      <option value="baseline">项目的第一行文字的基线对齐。</option>
+      <option value="stretch">如果项目未设置高度或设为auto，将占满整个容器的高度。</option>
     </datalist>
 
     <datalist id="flex-direction">
-      <option value="row">row</option>
-      <option value="row-reverse">row-reverse</option>
-      <option value="column">column</option>
-      <option value="column-reverse">column-reverse</option>
+      <option value="row">主轴为水平方向，起点在左端。</option>
+      <option value="row-reverse">主轴为水平方向，起点在右端。</option>
+      <option value="column">主轴为垂直方向，起点在上沿。</option>
+      <option value="column-reverse">主轴为垂直方向，起点在下沿。</option>
     </datalist>
 
     <datalist id="flex-wrap">
-      <option value="nowrap">nowrap</option>
-      <option value="wrap">wrap</option>
-      <option value="wrap-reverse">wrap-reverse</option>
+      <option value="nowrap">不换行</option>
+      <option value="wrap">换行，第一行在上方。</option>
+      <option value="wrap-reverse">换行，第一行在下方。</option>
     </datalist>
 
     <datalist id="justify-content">
-      <option value="flex-start">flex-start</option>
-      <option value="flex-end">flex-end</option>
-      <option value="center">center</option>
-      <option value="space-between">space-between</option>
-      <option value="space-around">space-around</option>
+      <option value="flex-start">左对齐</option>
+      <option value="flex-end">右对齐</option>
+      <option value="center">居中</option>
+      <option value="space-between">两端对齐，项目之间的间隔都相等。</option>
+      <option value="space-around">每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</option>
     </datalist>
 
     <datalist id="align-items">
-      <option value="flex-start">flex-start</option>
-      <option value="flex-end">flex-end</option>
-      <option value="center">center</option>
-      <option value="baseline">baseline</option>
-      <option value="stretch">stretch</option>
+      <option value="flex-start">交叉轴的起点对齐。</option>
+      <option value="flex-end">交叉轴的终点对齐。</option>
+      <option value="center">交叉轴的中点对齐。</option>
+      <option value="baseline">项目的第一行文字的基线对齐。</option>
+      <option value="stretch">如果项目未设置高度或设为auto，将占满整个容器的高度。</option>
+    </datalist>
+
+    <datalist id="align-contents">
+      <option value="flex-start">与交叉轴的起点对齐。</option>
+      <option value="flex-end">与交叉轴的终点对齐。</option>
+      <option value="center">与交叉轴的中点对齐。</option>
+      <option value="space-between">与交叉轴两端对齐，轴线之间的间隔平均分布。</option>
+      <option value="space-around">每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</option>
+      <option value="stretch">轴线占满整个交叉轴。</option>
     </datalist>
   </section>
 </template>
@@ -71,18 +80,17 @@ export default {
       containers: [],
       container: {
         'display': 'flex',
-        'flex-direction': null, // ['row', 'row-reverse', 'column', 'column-reverse'],
-        'flex-wrap': null, // ['nowrap', 'wrap', 'wrap-reverse'],
-        'justify-content': null, // ['flex-start', 'flex-end', 'center', 'space-between', 'space-around'],
-        'align-items': null, // ['flex-start', 'flex-end', 'center', 'baseline', 'stretch'],
-        'align-content': null // ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'stretch']
+        'flex-direction': null,
+        'flex-wrap': null,
+        'justify-content': null,
+        'align-items': null,
+        'align-content': null
       },
       container_item: {
         'order': null,
         'flex-grow': null,
         'flex-shrink': null,
         'flex-basis': null,
-        // 'align-selfs': ['auto', 'flex-start', 'flex-end', 'center', 'baseline ', 'stretch'],
         'align-self': null
       }
     }
@@ -188,11 +196,10 @@ export default {
         align-items: flex-start;
         height: inherit;
         border: solid 1px white;
-        padding: 15px;
+        padding: 1rem;
         overflow: auto;
         .mainContainers_div_item {
-          width: 14.5%;
-          min-width: 183px;
+          width: 25%;
           margin: 1%;
           padding: 0.5%;
           background-color: #3388f9;
@@ -202,10 +209,10 @@ export default {
             margin: 1%;
           }
           button {
-            width: 48.2%;
             height: 25px;
             border-width: 0;
             margin-left: 1px;
+            white-space: nowrap;
           }
         }
       }
