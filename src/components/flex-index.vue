@@ -167,12 +167,11 @@ export default {
     align-items: center;
     width: inherit;
     height: inherit;
-    padding: 5%;
     .indexWrap_div_toolbar {
       display: flex;
       place-content: flex-start;
       align-items: center;
-      width: 75%;
+      width: 99%;
       height: 5%;
       input {
         width: 100%;
@@ -181,8 +180,8 @@ export default {
       }
     }
     .indexWrap_div_main {
-      width: 75%;
-      height: 95%;
+      width: 99%;
+      height: 97%;
       .WrapMain_div_add {
         position: absolute;
         width: 1.2rem;
