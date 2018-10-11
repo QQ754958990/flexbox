@@ -122,8 +122,8 @@ export default {
       oDiv.style.left = oEvent.clientX + 'px' // 指定创建的DIV在文档中距离左侧的位置
       oDiv.style.top = oEvent.clientY + 'px' // 指定创建的DIV在文档中距离顶部的位置
       oDiv.style.position = 'absolute' // 为新创建的DIV指定绝对定位
-      oDiv.style.width = '30em' // 指定宽度
-      oDiv.style.height = '20em' // 指定高度
+      oDiv.style.width = '16rem' // 指定宽度
+      oDiv.style.height = '8rem' // 指定高度
 
       const oArea = document.createElement('textarea')
       const code_str = JSON.stringify(Object.assign({'#container': colne_container}, {'#container_item': colne_container_item}))
@@ -205,11 +205,11 @@ export default {
           background-color: #3388f9;
           input, div {
             width: 98%;
-            height: 25px;
+            height: 1.2rem;
             margin: 1%;
           }
           button {
-            height: 25px;
+            height: 1.2rem;
             border-width: 0;
             margin-left: 1px;
             white-space: nowrap;
